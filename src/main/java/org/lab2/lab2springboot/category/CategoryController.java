@@ -8,9 +8,9 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
-    KategoriService kategoriService;
+    CategoryService kategoriService;
 
-    public CategoryController(KategoriService kategoriService) {
+    public CategoryController(CategoryService kategoriService) {
         this.kategoriService = kategoriService;
     }
 
