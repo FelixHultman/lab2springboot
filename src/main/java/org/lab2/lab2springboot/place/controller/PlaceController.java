@@ -1,7 +1,6 @@
 package org.lab2.lab2springboot.place.controller;
 
 import org.lab2.lab2springboot.place.dto.PlaceDto;
-import org.lab2.lab2springboot.place.entity.Place;
 import org.lab2.lab2springboot.place.service.PlaceService;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,38 +37,10 @@ public class PlaceController {
         return placeService.getAllPlacesInCategory(categoryId);
     }
 
-//    // Hämta alla platser (publika och privata) som tillhör den inloggade användaren
-//    @GetMapping("/user")
-//    public List<Place> getUserPlaces() {
-//        return placeService.getAllPlacesForLoggedInUser();
-//    }
-//    //hämta alla platser inom en viss yta
-//    @GetMapping("/within-radius")
-//    public List<Place> getAllPlacesWithinRadius(@RequestParam float lat,
-//                                                @RequestParam float lon,
-//                                                @RequestParam float radius) {
-//        return placeService.getAllPlacesWithinRadius(lat, lon, radius);
-//    }
-//
-//    // skapa en plats (kräver inloggning)
-//    @PostMapping()
-//    public ResponseEntity<Void> addPlace(@RequestBody PlaceDto placeDto) {
-//        Place p = placeService.createNewPlace(placeDto);
-//        return ResponseEntity.created(URI.create("/places/" + p.getId())).build();
-//    }
-//
-//    // uppdatera en befintlig plats(kräver inloggning) vilka fält ska uppdateras?
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Void> updatePlace(@PathVariable int id, @RequestBody PlaceDto placeDto) {
-//        placeService.updatePlace(id, placeDto);
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    // ta bort befintlig plats (kräver inloggning) soft delete?
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deletePlace(@PathVariable int id) {
-//        placeService.deletePlace(id); // Soft delete, markera platsen som borttagen
-//        return ResponseEntity.ok().build();
-//    }
+//hämta alla platser som tillhör den inloggade användare
+    @GetMapping("/my-places")
+    public List<PlaceDto> getMyPlaces() {
+        return placeService.getMyPlaces();
+    }
 
 }

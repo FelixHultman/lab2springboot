@@ -1,8 +1,6 @@
 package org.lab2.lab2springboot.place.service;
 
-import org.lab2.lab2springboot.category.dto.CategoryDto;
 import org.lab2.lab2springboot.place.dto.PlaceDto;
-import org.lab2.lab2springboot.place.entity.Place;
 import org.lab2.lab2springboot.place.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
 
@@ -31,16 +29,16 @@ public class PlaceService {
                 .orElseThrow());
     }
 
-//    public List<PlaceDto> getAllPlacesInCategory(int id) {
-//        return (List<PlaceDto>) placeRepository.findAll().stream()
-//                .filter(place -> !place.getIsPrivate())
-//                .filter(place -> place.getCategory().getId() == id)
-//                .map(PlaceDto::fromPlace)
-//                .toList();
-//    }
 
     public List<PlaceDto> getAllPlacesInCategory(int categoryId) {
         return placeRepository.findAllByCategory_IdAndIsPrivateFalse(categoryId)
+                .stream()
+                .map(PlaceDto::fromPlace)
+                .toList();
+    }
+
+    public List<PlaceDto> getMyPlaces() {
+        return placeRepository.findAllByUser_IdAndIsPrivateFalse(101)
                 .stream()
                 .map(PlaceDto::fromPlace)
                 .toList();
