@@ -1,7 +1,8 @@
-package org.lab2.lab2springboot.category;
+package org.lab2.lab2springboot.category.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+import org.lab2.lab2springboot.category.dto.CategoryDto;
+import org.lab2.lab2springboot.category.service.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public List<CategoryDto> getAllCategories() {
-       return categoryService.allCategories();
+        return categoryService.allCategories();
     }
 
     @PostMapping("/categories")

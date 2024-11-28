@@ -1,6 +1,8 @@
-package org.lab2.lab2springboot.category;
+package org.lab2.lab2springboot.category.service;
 
 
+import org.lab2.lab2springboot.category.dto.CategoryDto;
+import org.lab2.lab2springboot.category.repository.CategoryRepository;
 import org.lab2.lab2springboot.category.entity.Category;
 import org.springframework.stereotype.Service;
 

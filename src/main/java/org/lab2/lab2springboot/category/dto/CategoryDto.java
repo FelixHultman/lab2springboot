@@ -1,4 +1,4 @@
-package org.lab2.lab2springboot.category;
+package org.lab2.lab2springboot.category.dto;
 
 import org.lab2.lab2springboot.category.entity.Category;
 

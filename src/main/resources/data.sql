@@ -13,7 +13,7 @@ VALUES ('Park', '🌳', 'Outdoor green spaces.'),
        ('Museum', '🖼️', 'Places to explore art and history.');
 
 
-INSERT INTO place (name, description, category_id, isPrivate, coordinates, user_id)
+INSERT INTO place (name, description, category_id, is_private, coordinates, user_id)
 VALUES ('Central Park', 'A large public park in the city center.', 1, FALSE, POINT(40.785091, -73.968285), 101),
        ('Library Hall', 'A quiet place for study and research.', 2, FALSE, POINT(40.712776, -74.005974), 102),
        ('Sunset Cafe', 'A small, cozy cafe with great coffee.', 3, FALSE, POINT(34.052235, -118.243683), 103),

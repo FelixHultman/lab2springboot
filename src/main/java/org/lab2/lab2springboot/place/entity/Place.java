@@ -12,7 +12,6 @@ import java.time.Instant;
 @Table(name = "place", schema = "mydatabase")
 public class Place {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -33,16 +32,16 @@ public class Place {
 
     @NotNull
     @ColumnDefault("0")
-    @Column(name = "isPrivate", nullable = false)
+    @Column(name = "is_private", nullable = false)
     private Boolean isPrivate = false;
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "createdAt", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "updatedAt")
+    @Column(name = "updated_at")
     private Instant updatedAt;
 
     @NotNull
