@@ -38,7 +38,7 @@ public class PlaceService {
     }
 
     public List<PlaceDto> getMyPlaces() {
-        return placeRepository.findAllByUser_IdAndIsPrivateFalse(101)
+        return placeRepository.findAllByUser_Id(107)
                 .stream()
                 .map(PlaceDto::fromPlace)
                 .toList();
