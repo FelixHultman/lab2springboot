@@ -17,16 +17,17 @@ public class CategoryService {
 
     public List<CategoryDto> allCategories() {
         return (List<CategoryDto>) categoryRepository.findAll().stream()
-                .map(p -> new CategoryDto(p.getName(), p.getSymbol(), p.getDescription()))
+                .map(CategoryDto::fromCategory)
                 .toList();
 
     }
 
-    public void addCategory(CategoryDto categoryDto) {
+    public int addCategory(CategoryDto categoryDto) {
         Category category = new Category();
         category.setName(categoryDto.name());
         category.setSymbol(categoryDto.symbol());
         category.setDescription(categoryDto.description());
-        categoryRepository.save(category);
+        category = categoryRepository.save(category);
+        return category.getId();
     }
 }

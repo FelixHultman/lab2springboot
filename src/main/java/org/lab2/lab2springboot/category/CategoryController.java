@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class CategoryController {
 
     @PostMapping("/categories")
     public ResponseEntity<String> addCategory(@Valid @RequestBody CategoryDto categoryDto) {
-        categoryService.addCategory(categoryDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Category added successfully!");
+        int id = categoryService.addCategory(categoryDto);
+        return ResponseEntity.created(URI.create(("/categories/" + id))).build();
     }
 }
