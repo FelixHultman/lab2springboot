@@ -18,10 +18,31 @@ public class PlaceService {
     }
 
     public List<PlaceDto> getAllPublicPlaces() {
-        return (List<PlaceDto>) placeRepository.findAll().stream()
+        return placeRepository.findAll().stream()
+                .filter(place -> !place.getIsPrivate())
                 .map(PlaceDto::fromPlace)
                 .toList();
     }
 
 
+    public PlaceDto getPlaceById(int id) {
+        return PlaceDto.fromPlace(placeRepository.findById(id)
+                .filter(place -> !place.getIsPrivate())
+                .orElseThrow());
+    }
+
+//    public List<PlaceDto> getAllPlacesInCategory(int id) {
+//        return (List<PlaceDto>) placeRepository.findAll().stream()
+//                .filter(place -> !place.getIsPrivate())
+//                .filter(place -> place.getCategory().getId() == id)
+//                .map(PlaceDto::fromPlace)
+//                .toList();
+//    }
+
+    public List<PlaceDto> getAllPlacesInCategory(int categoryId) {
+        return placeRepository.findAllByCategory_IdAndIsPrivateFalse(categoryId)
+                .stream()
+                .map(PlaceDto::fromPlace)
+                .toList();
+    }
 }

@@ -20,30 +20,29 @@ public class PlaceController {
     }
 
 
-    //hämta alla publika platser
+    //hämta alla publika platser (anonym användare)
     @GetMapping
     public List<PlaceDto> getAllPlaces() {
         return placeService.getAllPublicPlaces();
     }
 
-//    //hämta alla publika platser
-//    @GetMapping("/{id}")
-//    public Place getPlace(@PathVariable int id) {
-//        return placeService.getPlaceById(id);
-//    }
-//
+    //hämta specifik plats (anonym användare)
+    @GetMapping("/{id}")
+    public PlaceDto getPlace(@PathVariable int id) {
+        return placeService.getPlaceById(id);
+    }
+
+    //hämta alla platser inom en kategori
+    @GetMapping("/category/{categoryId}")
+    public List<PlaceDto> getAllPlacesInCategory(@PathVariable int categoryId) {
+        return placeService.getAllPlacesInCategory(categoryId);
+    }
+
 //    // Hämta alla platser (publika och privata) som tillhör den inloggade användaren
 //    @GetMapping("/user")
 //    public List<Place> getUserPlaces() {
 //        return placeService.getAllPlacesForLoggedInUser();
 //    }
-//
-//    //hämta alla platser (publika och privata) som tillhör den inloggade användaren
-//    @GetMapping("/category/{categoryId}")
-//    public List<Place> getAllPlacesByCategory(@PathVariable int categoryId) {
-//        return placeService.getAllPlacesByCategory(categoryId);
-//    }
-//
 //    //hämta alla platser inom en viss yta
 //    @GetMapping("/within-radius")
 //    public List<Place> getAllPlacesWithinRadius(@RequestParam float lat,
