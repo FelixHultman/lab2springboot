@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 import org.lab2.lab2springboot.category.entity.Category;
-import org.lab2.lab2springboot.user.entity.User;
+
 
 import java.time.Instant;
 
@@ -21,6 +21,9 @@ public class Place {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String userId;
 
     @Size(max = 255)
     @NotNull
@@ -46,10 +49,6 @@ public class Place {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     public Integer getId() {
         return id;
@@ -107,17 +106,6 @@ public class Place {
         this.updatedAt = updatedAt;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Integer getUserId() {
-        return user.getId();
-    }
 
 /*
  TODO [Reverse Engineering] create field to map the 'coordinates' column

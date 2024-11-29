@@ -1,5 +1,6 @@
 package org.lab2.lab2springboot.place.service;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.lab2.lab2springboot.place.dto.PlaceDto;
 import org.lab2.lab2springboot.place.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,20 @@ public class PlaceService {
     }
 
     public List<PlaceDto> getMyPlaces() {
-        return placeRepository.findAllByUser_Id(107)
+
+        String userId = "mockUserId"; // Exempelvärde för utveckling och testning
+        return placeRepository.findAllByUserId(userId)
                 .stream()
                 .map(PlaceDto::fromPlace)
                 .toList();
     }
 }
+
+//    public List<PlaceDto> getCloseArea(float lat, float lon, float radius) {
+//        return placeRepository.findAll().stream()
+//                .filter(place -> !place.getIsPrivate())
+//                .filter(place -> Math.sqrt(Math.pow(place.getLat() - lat, 2) + Math.pow(place.getLon() - lon, 2)) <= radius)
+//                .map(PlaceDto::fromPlace)
+//                .toList();
+//    }
+

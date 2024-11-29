@@ -11,6 +11,6 @@ public interface PlaceRepository extends ListCrudRepository<Place, Integer> {
 
     List<Place> findAllByCategory_IdAndIsPrivateFalse(Integer categoryId);
 
-    List<Place> findAllByUser_Id(Integer userId);
+    List<Place> findAllByUserId(String userId);
 
 }

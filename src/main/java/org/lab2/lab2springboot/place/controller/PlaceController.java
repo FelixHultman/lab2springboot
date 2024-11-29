@@ -37,10 +37,15 @@ public class PlaceController {
         return placeService.getAllPlacesInCategory(categoryId);
     }
 
-//hämta alla platser som tillhör den inloggade användare
+    //hämta alla platser som tillhör den inloggade användare
     @GetMapping("/my-places")
     public List<PlaceDto> getMyPlaces() {
         return placeService.getMyPlaces();
     }
 
+    //hämta alla platser inom en yta
+//    @GetMapping("/close-area")
+//    public List<PlaceDto> getCloseArea(@RequestParam float lat, @RequestParam float lon, @RequestParam float radius) {
+//        return placeService.getCloseArea(lat, lon, radius);
+//    }
 }

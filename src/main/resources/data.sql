@@ -1,19 +1,10 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
-TRUNCATE `user`;
 TRUNCATE category;
 TRUNCATE place;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-INSERT INTO `user` (id, username, password, role)
-VALUES (101, 'user1', 'password1', 'USER'),
-       (102, 'user2', 'password2', 'USER'),
-       (103, 'user3', 'password3', 'USER'),
-       (104, 'user4', 'password4', 'ADMIN'),
-       (105, 'user5', 'password5', 'USER'),
-       (106, 'user6', 'password6', 'USER'),
-       (107, 'user7', 'password7', 'USER');
 
 INSERT INTO category (name, symbol, description)
 VALUES ('Park', '🌳', 'Outdoor green spaces.'),
