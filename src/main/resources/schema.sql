@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS place
     is_private  BOOLEAN      NOT NULL DEFAULT FALSE,
     created_at  TIMESTAMP             DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at  TIMESTAMP             DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    coordinates POINT        NOT NULL,
-    user_id     INT          NOT NULL,
+    coordinates GEOMETRY       NOT NULL SRID 4326,
+    user_id     VARCHAR(255)          NOT NULL,
     FOREIGN KEY (category_id) REFERENCES category (id)
 );
 

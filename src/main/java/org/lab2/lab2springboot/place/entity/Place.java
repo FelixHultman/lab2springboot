@@ -3,10 +3,12 @@ package org.lab2.lab2springboot.place.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.geolatte.geom.G2D;
+import org.geolatte.geom.Point;
 import org.hibernate.annotations.ColumnDefault;
 import org.lab2.lab2springboot.category.entity.Category;
 
-
+import java.security.Timestamp;
 import java.time.Instant;
 
 @Entity
@@ -21,9 +23,6 @@ public class Place {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(nullable = false)
-    private String userId;
 
     @Size(max = 255)
     @NotNull
@@ -40,6 +39,7 @@ public class Place {
     @Column(name = "is_private", nullable = false)
     private Boolean isPrivate = false;
 
+
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at", nullable = false)
@@ -48,6 +48,14 @@ public class Place {
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @NotNull
+    @Column(name = "user_id", nullable = false)
+    private String userId;
+
+
+    @Column(name = "coordinates", columnDefinition = "geometry not null")
+    private Point<G2D> coordinates;
 
 
     public Integer getId() {
@@ -106,11 +114,33 @@ public class Place {
         this.updatedAt = updatedAt;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 
-/*
- TODO [Reverse Engineering] create field to map the 'coordinates' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "coordinates", columnDefinition = "point not null")
-    private Object coordinates;
-*/
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+
+    public void setCoordinates(Point<G2D> geo) {
+        this.coordinates = geo;
+    }
+
+    public Point<G2D> getCoordinates() {
+        return coordinates;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        Instant currentTime = Instant.now();
+        this.createdAt = currentTime;
+        this.updatedAt = currentTime;
+    }
+
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }
