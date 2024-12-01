@@ -110,5 +110,12 @@ public class PlaceService {
         placeRepository.save(place);
         return PlaceDto.fromPlace(place);
     }
+
+    public void deletePlace(int id) {
+        Place place = placeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Place not found"));
+        place.setDeleted(true);
+        placeRepository.save(place);
+    }
 }
 

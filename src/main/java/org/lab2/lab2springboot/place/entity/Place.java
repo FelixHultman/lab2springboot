@@ -53,6 +53,9 @@ public class Place {
     @Column(name = "user_id", nullable = false)
     private String userId;
 
+    @NotNull
+    @ColumnDefault("0")
+    private Boolean deleted = false;
 
     @Column(name = "coordinates", columnDefinition = "geometry")
     private Point<G2D> coordinates;
@@ -112,6 +115,14 @@ public class Place {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public String getUserId() {

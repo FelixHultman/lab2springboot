@@ -72,5 +72,11 @@ public class PlaceController {
         return ResponseEntity.ok(updatedPlace);
     }
 
+    //radera en plats
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePlace(@PathVariable int id) {
+        placeService.deletePlace(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

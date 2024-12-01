@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS place
     updated_at  TIMESTAMP             DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     coordinates GEOMETRY       NOT NULL SRID 4326,
     user_id     VARCHAR(255)          NOT NULL,
+    deleted    BOOLEAN               NOT NULL DEFAULT FALSE,
     FOREIGN KEY (category_id) REFERENCES category (id)
 );
 

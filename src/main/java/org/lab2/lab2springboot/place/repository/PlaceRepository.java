@@ -20,4 +20,7 @@ public interface PlaceRepository extends ListCrudRepository<Place, Integer> {
             "WHERE ST_Distance_Sphere(coordinates, ST_GeomFromText(:point, 4326)) <= :radius",
             nativeQuery = true)
     List<Place> findPlaceWithinRadius(@Param("point") String point, @Param("radius") double radius);
+
+    @Query("SELECT p FROM Place p WHERE p.deleted = false")
+    List<Place> findAllNonDeleted();
 }

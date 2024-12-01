@@ -16,9 +16,10 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
-    CategoryService CategoryService;
+
 
     public CategoryController(CategoryService categoryService) {
+
         this.categoryService = categoryService;
     }
 
