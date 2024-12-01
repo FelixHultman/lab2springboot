@@ -47,6 +47,15 @@ public class PlaceController {
         return placeService.getMyPlaces();
     }
 
+    //hämta alla platser inom en yta
+    @GetMapping("/close-area")
+    public List<PlaceDto> getCloseArea(@RequestParam(defaultValue = "0") float lat,
+                                       @RequestParam(defaultValue = "0") float lon,
+                                       @RequestParam(defaultValue = "1000") float radius) {
+        System.out.println("Latitude: " + lat + ", Longitude: " + lon + ", Radius: " + radius);
+        return placeService.getCloseArea(lat, lon, radius);
+    }
+
     //skapa en ny plats
     @PostMapping("/add")
     public ResponseEntity<Void> addPlace(@RequestBody CreatePlaceDto createplaceDto) {
@@ -54,12 +63,6 @@ public class PlaceController {
         return ResponseEntity.created(URI.create("/places/" + place.getId())).build();
 
     }
-
-    //hämta alla platser inom en yta
-//    @GetMapping("/close-area")
-//    public List<PlaceDto> getCloseArea(@RequestParam float lat, @RequestParam float lon, @RequestParam float radius) {
-//        return placeService.getCloseArea(lat, lon, radius);
-//    }
 
 
 }

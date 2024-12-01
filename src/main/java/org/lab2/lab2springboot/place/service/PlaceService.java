@@ -75,13 +75,13 @@ public class PlaceService {
         return placeRepository.save(place);
     }
 
+    public List<PlaceDto> getCloseArea(float lat, float lon, float radius) {
+        String point = String.format("POINT(%f %f)", lon, lat).replace(",", ".");
+        System.out.println("Generated POINT: " + point);
+        return placeRepository.findPlaceWithinRadius(point, (double) radius)
+                .stream()
+                .map(PlaceDto::fromPlace)
+                .toList();
+    }
 }
-
-//    public List<PlaceDto> getCloseArea(float lat, float lon, float radius) {
-//        return placeRepository.findAll().stream()
-//                .filter(place -> !place.getIsPrivate())
-//                .filter(place -> Math.sqrt(Math.pow(place.getLat() - lat, 2) + Math.pow(place.getLon() - lon, 2)) <= radius)
-//                .map(PlaceDto::fromPlace)
-//                .toList();
-//    }
 

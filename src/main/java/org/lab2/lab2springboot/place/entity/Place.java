@@ -54,7 +54,7 @@ public class Place {
     private String userId;
 
 
-    @Column(name = "coordinates", columnDefinition = "geometry not null")
+    @Column(name = "coordinates", columnDefinition = "geometry")
     private Point<G2D> coordinates;
 
 
