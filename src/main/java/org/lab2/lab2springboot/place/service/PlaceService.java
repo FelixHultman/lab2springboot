@@ -1,5 +1,6 @@
 package org.lab2.lab2springboot.place.service;
 
+import jakarta.transaction.Transactional;
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Geometries;
 import org.lab2.lab2springboot.category.repository.CategoryRepository;
@@ -59,6 +60,7 @@ public class PlaceService {
                 .toList();
     }
 
+    @Transactional
     public Place createNewPlace(CreatePlaceDto createPlaceDto) {
         if (createPlaceDto.lat() < -90 || createPlaceDto.lat() > 90 || createPlaceDto.lon() < -180 || createPlaceDto.lon() > 180) {
             throw new IllegalArgumentException("Invalid latitude or longitude");
@@ -78,13 +80,13 @@ public class PlaceService {
 
     public List<PlaceDto> getCloseArea(float lat, float lon, float radius) {
         String point = String.format("POINT(%f %f)", lon, lat).replace(",", ".");
-        System.out.println("Generated POINT: " + point);
         return placeRepository.findPlaceWithinRadius(point, (double) radius)
                 .stream()
                 .map(PlaceDto::fromPlace)
                 .toList();
     }
 
+    @Transactional
     public PlaceDto updatePlace(int id, UpdatePlaceDto updatePlaceDto) {
         Place place = placeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Place not found"));
@@ -102,20 +104,26 @@ public class PlaceService {
         if (updatePlaceDto.is_private() != null) {
             place.setIsPrivate(updatePlaceDto.is_private());
         }
-        if (updatePlaceDto.lat() >= -90 && updatePlaceDto.lat() <= 90 && updatePlaceDto.lon() >= -180 && updatePlaceDto.lon() <= 180) {
+        if (updatePlaceDto.lat() != null && updatePlaceDto.lon() != null) {
+            validateCoordinates(updatePlaceDto.lat(), updatePlaceDto.lon());
             place.setCoordinates(Geometries.mkPoint(new G2D(updatePlaceDto.lon(), updatePlaceDto.lat()), WGS84));
-        } else {
-            throw new IllegalArgumentException("Invalid latitude or longitude");
         }
         placeRepository.save(place);
         return PlaceDto.fromPlace(place);
     }
 
+    @Transactional
     public void deletePlace(int id) {
         Place place = placeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Place not found"));
         place.setDeleted(true);
         placeRepository.save(place);
+    }
+
+    private void validateCoordinates(float lat, float lon) {
+        if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+            throw new IllegalArgumentException("Invalid latitude or longitude");
+        }
     }
 }
 

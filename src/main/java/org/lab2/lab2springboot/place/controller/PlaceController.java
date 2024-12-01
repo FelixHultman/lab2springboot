@@ -53,7 +53,6 @@ public class PlaceController {
     public List<PlaceDto> getCloseArea(@RequestParam(defaultValue = "0") float lat,
                                        @RequestParam(defaultValue = "0") float lon,
                                        @RequestParam(defaultValue = "1000") float radius) {
-        System.out.println("Latitude: " + lat + ", Longitude: " + lon + ", Radius: " + radius);
         return placeService.getCloseArea(lat, lon, radius);
     }
 
