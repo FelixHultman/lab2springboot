@@ -2,6 +2,7 @@ package org.lab2.lab2springboot.place.controller;
 
 import org.lab2.lab2springboot.place.dto.CreatePlaceDto;
 import org.lab2.lab2springboot.place.dto.PlaceDto;
+import org.lab2.lab2springboot.place.dto.UpdatePlaceDto;
 import org.lab2.lab2springboot.place.entity.Place;
 import org.lab2.lab2springboot.place.service.PlaceService;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +63,13 @@ public class PlaceController {
         Place place = placeService.createNewPlace(createplaceDto);
         return ResponseEntity.created(URI.create("/places/" + place.getId())).build();
 
+    }
+
+    //uppdatera en plats
+    @PutMapping("/{id}")
+    public ResponseEntity<PlaceDto> updatePlace(@PathVariable int id, @RequestBody UpdatePlaceDto updatePlaceDto) {
+        PlaceDto updatedPlace = placeService.updatePlace(id, updatePlaceDto);
+        return ResponseEntity.ok(updatedPlace);
     }
 
 

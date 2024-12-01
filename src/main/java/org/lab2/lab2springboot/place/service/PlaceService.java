@@ -5,6 +5,7 @@ import org.geolatte.geom.Geometries;
 import org.lab2.lab2springboot.category.repository.CategoryRepository;
 import org.lab2.lab2springboot.place.dto.CreatePlaceDto;
 import org.lab2.lab2springboot.place.dto.PlaceDto;
+import org.lab2.lab2springboot.place.dto.UpdatePlaceDto;
 import org.lab2.lab2springboot.place.entity.Place;
 import org.lab2.lab2springboot.place.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,32 @@ public class PlaceService {
                 .stream()
                 .map(PlaceDto::fromPlace)
                 .toList();
+    }
+
+    public PlaceDto updatePlace(int id, UpdatePlaceDto updatePlaceDto) {
+        Place place = placeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Place not found"));
+
+        if (updatePlaceDto.name() != null) {
+            place.setName(updatePlaceDto.name());
+        }
+        if (updatePlaceDto.description() != null) {
+            place.setDescription(updatePlaceDto.description());
+        }
+        if (updatePlaceDto.category_id() != null) {
+            place.setCategory(categoryRepository.findById(updatePlaceDto.category_id())
+                    .orElseThrow(() -> new IllegalArgumentException("Category not found")));
+        }
+        if (updatePlaceDto.is_private() != null) {
+            place.setIsPrivate(updatePlaceDto.is_private());
+        }
+        if (updatePlaceDto.lat() >= -90 && updatePlaceDto.lat() <= 90 && updatePlaceDto.lon() >= -180 && updatePlaceDto.lon() <= 180) {
+            place.setCoordinates(Geometries.mkPoint(new G2D(updatePlaceDto.lon(), updatePlaceDto.lat()), WGS84));
+        } else {
+            throw new IllegalArgumentException("Invalid latitude or longitude");
+        }
+        placeRepository.save(place);
+        return PlaceDto.fromPlace(place);
     }
 }
 
