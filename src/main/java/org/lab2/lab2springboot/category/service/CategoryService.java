@@ -32,4 +32,10 @@ public class CategoryService {
         category = categoryRepository.save(category);
         return category.getId();
     }
+
+    public CategoryDto getCategoryById(int id) {
+        return categoryRepository.findById(id)
+                .map(CategoryDto::fromCategory)
+                .orElseThrow();
+    }
 }

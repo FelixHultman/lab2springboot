@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.lab2.lab2springboot.category.dto.CategoryDto;
 import org.lab2.lab2springboot.category.service.CategoryService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,13 @@ public class CategoryController {
         return categoryService.allCategories();
     }
 
+    @GetMapping("/categories/{id}")
+    public CategoryDto getCategory(int id) {
+        return categoryService.getCategoryById(id);
+    }
+
     @PostMapping("/categories")
+    @PreAuthorize("hasAuthority('SCOPE_admin')")
     public ResponseEntity<String> addCategory(@Valid @RequestBody CategoryDto categoryDto) {
         int id = categoryService.addCategory(categoryDto);
         return ResponseEntity.created(URI.create(("/categories/" + id))).build();
